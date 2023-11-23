@@ -11,18 +11,44 @@ namespace App
         public String CombineUrl(params String[] parts)
         {
             StringBuilder sb = new();
+            bool wasNull = false;
             foreach (String part in parts)
             {
+                if (part is null)
+                {
+                    wasNull = true;
+                    continue;
+                }
+                if (wasNull)
+                {
+                    throw new ArgumentException("Non-Null argument after Null one");
+                }
                 String p = part;
                 if (!p.StartsWith('/')) p = '/' + p;
                 if (p.EndsWith("/")) p = p[..^1];
                 sb.Append(p);
+            }
+            if(sb.Length == 0)
+            {
+                throw new ArgumentException("All arguments are null");
             }
             return sb.ToString();
         }
 
         public String Ellipsis(String input, int len)
         {
+            if(input == null)
+            {
+                throw new ArgumentNullException("Null detected in parameter: " + nameof(input));
+            }
+            if(len < 3)
+            {
+                throw new ArgumentException("Argument 'len' could not be less than 3");
+            }
+            if(input.Length < len)
+            {
+                throw new ArgumentOutOfRangeException("Argument 'len' could not be greater than input length");
+            }
             // return "He...";
             // return (len == 5) ? "He..." : "Hel...";
             // return "Hel"[..(len-3)]+"...";
