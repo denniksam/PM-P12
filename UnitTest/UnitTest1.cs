@@ -6,6 +6,8 @@ namespace UnitTest            // Тестовий проєкт "відзеркалює"
     [TestClass]               // від імен класів проєкту,
     public class HelperTest   // додаючи "Test"
     {
+        []
+
         [TestMethod]
         public void EllipsisTest()  // так само, як і методи
         {
@@ -81,6 +83,7 @@ namespace UnitTest            // Тестовий проєкт "відзеркалює"
                 );
             }
         }
+
         [TestMethod]
         public void CombineUrlMultiTest()
         {
